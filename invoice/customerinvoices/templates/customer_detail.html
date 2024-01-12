@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Customer Detail</h2>
+  {% if user.is_authenticated %}
+  {% if user.id == customer.user.id %}
+  <p>Name: {{ object.name }}</p>
+  <p>Email: {{ object.email_address }}</p>
+  <p>Phone Number: {{ object.phone_number }}</p>
+  <a href="{% url 'customer_update' pk=object.pk %}" class="btn btn-success">Update</a>
+  <a href="{% url 'customer_delete' pk=object.pk %}" class="btn btn-danger">Delete</a>
+  {% endif %}
+  {% endif %}
+{% endblock %}

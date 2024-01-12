@@ -1,0 +1,24 @@
+<!-- receipt_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+  <h2>Delete Receipt</h2>
+  {% if user.id == receipt.user.id %}
+
+
+  <p>Are you sure you want to delete the receipt for {{ object.customer.name }}?</p>
+  <form method="post" action="{% url 'receipt_delete' pk=object.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+  <a href="{% url 'receipt_list' %}">Cancel</a>
+  {% else %}
+  <p>There is no receipt to see here</p>
+
+{% endif %}
+</div>
+{% endblock %}
+
+
+

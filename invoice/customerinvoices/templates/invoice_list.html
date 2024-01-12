@@ -1,0 +1,54 @@
+<!-- invoice_list.html -->
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<a href="{% url 'invoice_create' %}" class="btn btn-success mb-2">Create Invoice</a>
+  <div class="card">
+    <h2>Invoice List</h2>
+  <table id="invoiceTable" class="display">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Description</th>
+        <th>Discount Percentage</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Date Created</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in object_list %}
+      {% if user.id == invoice.user.id%}
+        <tr>
+          <td>{{ invoice.customer.name }}</td>
+          <td>{{ invoice.description }}</td>
+          <td>{{ invoice.discount_percentage }}</td>
+          <td>{{ invoice.amount|intcomma }}</td>
+          <td>{{ invoice.status }}</td>
+          <td>{{ invoice.created_at}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Invoice Actions">
+              <a href="{% url 'invoice_detail' pk=invoice.pk %}" class="btn btn-success btn-sm mx-1">Detail</a>
+              <a href="{% url 'invoice_update' pk=invoice.pk %}" class="btn btn-primary btn-sm mx-1">Update</a>
+              <a href="{% url 'invoice_delete' pk=invoice.pk %}" class="btn btn-danger btn-sm mx-1">Delete</a>
+              <a href="{% url 'detail_to_pdf' model='invoice' pk=invoice.pk %}" class="btn btn-secondary btn-sm mx-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+              </svg></a>
+
+            </div>
+          </td>
+        </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  </div>
+  <script>
+    $(document).ready(function() {
+      $('#invoiceTable').DataTable();
+    });
+  </script>
+{% endblock %}

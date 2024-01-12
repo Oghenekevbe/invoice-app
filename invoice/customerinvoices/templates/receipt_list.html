@@ -1,0 +1,60 @@
+<!-- receipt_list.html -->
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+<a href="{% url 'receipt_create' %}" class="btn btn-success mb-2">Create Receipt</a>
+<div class="card">
+  <h2>Receipts</h2>
+  <table id="receipts-table" class="display">
+    <thead>
+      <tr>
+        <th>Customer</th>
+        <th>Description</th>
+        <th>Discount Percentage</th>
+        <th>Amount</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receipt in object_list %}
+        {% if user.is_authenticated %}
+        {% if user.id == receipt.user.id %}
+        <tr>
+          <td>{{ receipt.customer.name }}</td>
+          <td>{{ receipt.description }}</td>
+          <td>{{ receipt.discount_percentage }}</td>
+          <td>{{ receipt.amount|intcomma }}</td>
+          <td>{{ receipt.created_at}}</td>
+          <td>
+            <div class="btn-group" role="group" aria-label="Receipt Actions">
+              <a href="{% url 'receipt_detail' pk=receipt.pk %}" class="btn btn-success btn-sm mx-1">Detail</a>
+              <a href="{% url 'receipt_update' pk=receipt.pk %}" class="btn btn-primary btn-sm mx-1">Update</a>
+              <a href="{% url 'receipt_delete' pk=receipt.pk %}" class="btn btn-danger btn-sm mx-1">Delete</a>
+              <a href="{% url 'detail_to_pdf' model='receipt' pk=receipt.pk %}" class="btn btn-secondary btn-sm mx-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down-fill" viewBox="0 0 16 16">
+                <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1m-1 4v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 11.293V7.5a.5.5 0 0 1 1 0"/>
+              </svg></a>
+
+            </div>
+          </td>
+        </tr>
+        
+        {% endif %}
+        
+        {% endif %}
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+</div>
+
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#receipts-table').DataTable();
+    });
+  </script>
+{% endblock %}

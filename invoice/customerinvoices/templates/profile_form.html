@@ -1,0 +1,16 @@
+<!-- your_app/templates/profile_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}Profile Form{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>{% if form.instance.pk %}Update{% else %}Create{% endif %} Profile</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a href="{% url 'welcome' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

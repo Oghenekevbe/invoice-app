@@ -1,0 +1,31 @@
+<!-- your_app/templates/profile_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}Profile Detail{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Profile Detail</h2>
+  <p><strong>ID:</strong> {{ object.id }}</p>
+  <p><strong>Brand Name:</strong> {{ object.brand_name }}</p>
+  <a href="{% url 'welcome' %}" class="btn btn-secondary">Back to Home</a>
+  <a href="{% url 'profile_update' pk=object.id %}" class="btn btn-warning">Update</a>
+
+  <div class="card text-center mt-3">
+    <div class="card-header">
+     
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Profile</h5>
+      <p class="card-text">Username: {{user.username}}</p>
+      <p class="card-text">E-mail: {{user.email}}</p>
+      <a href="#" class="btn btn-primary">Edit Profile</a>
+    </div>
+    <div class="card-footer text-body-secondary">
+      
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}

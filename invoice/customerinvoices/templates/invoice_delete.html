@@ -1,0 +1,17 @@
+<!-- invoice_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+ <div class="card">
+  <h2>Delete Invoice</h2>
+  {% if user.id == invoice.user.id%}
+
+  <p>Are you sure you want to delete the invoice for {{ object.customer.name }}?</p>
+  <form method="post" action="{% url 'invoice_delete' pk=object.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+  </form>
+  {% endif %}
+  <a href="{% url 'invoice_list' %}">Cancel</a>
+ </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+body{
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), /* Adjust the gradient and opacity as needed */
+  url('https://images.pexels.com/photos/4173174/pexels-photo-4173174.jpeg?auto=compress&cs=tinysrgb&w=600');  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card{
+  background-color: rgba(225, 225, 225, 0.4) !important;
+  padding: 10px !important;
+}
+.navbar{
+  border-bottom: 3px !important;
+  border-bottom-style: ridge !important;
+  border-bottom-color: silver !important;
+}

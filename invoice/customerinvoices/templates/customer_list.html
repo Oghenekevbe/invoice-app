@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'customer_create' %}" class="btn btn-success mb-2">Create Customer</a>
+<div class="card">
+  
+<h2>Customer List</h2>
+<table id="customerTable" class="display">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone Number</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for customer in object_list %}
+    {% if user.id == customer.user.id %}
+    <tr>
+      <td>
+        {{ customer.name }}
+      </td>
+      <td>
+        {{ customer.email_address }}
+      </td>
+      <td>
+        {{ customer.phone_number }}
+      </td>
+      <td>
+        <a href="{% url 'customer_detail' pk=customer.pk %}" class="btn btn-success btn-sm mx-1">Detail</a>
+        <a href="{% url 'customer_update' pk=customer.pk %}" class="btn btn-primary btn-sm mx-1">Update</a>
+        <a href="{% url 'customer_delete' pk=customer.pk %}" class="btn btn-danger btn-sm mx-1">Delete</a>
+      </td>
+    </tr>
+
+
+
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#customerTable').DataTable();
+  });
+</script>
+{% endblock %}

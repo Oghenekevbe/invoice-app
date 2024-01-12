@@ -1,0 +1,148 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {{ model }} -
+    {{ object.customer.name }}
+  </title>
+  <style>
+
+
+
+
+
+    h6 {
+      color: white;
+      padding-top: 50%;
+      text-align: center;
+      font-family: 'Roboto', sans-serif;
+      font-weight: lighter;
+      font-style: oblique;
+
+
+
+    }
+
+    .h6wrap {
+      border-top-color: silver;
+      border-style: ridge;
+      background-color: #8f8f8f;
+      border: 3px;
+      border-left-color: #838686;
+      border-right-color: #8f8f8f;
+      border-bottom-color: #838686;
+
+
+
+    }
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    .custom-card {
+      border-radius: 10px;
+      margin-left: 15px;
+      margin-bottom: 20px;
+      border-color: #fdfdfd;
+      border-left-color: #efefef;
+      border-bottom-color: #efefef;
+      border-style: ridge;
+      padding: 5px 0 0 5px;
+
+    }
+
+    .card-text {
+      color: #575252;
+      font-weight: lighter;
+    }
+
+
+    h3 {
+      font-size: 0.0052rem;
+      margin-bottom: 10px;
+      color: #6F8FAF;
+      background-color: #6F8FAF;
+      border: 2px;
+      border-bottom-style: ridge;
+      border-bottom-color: silver;
+    }
+
+    h5 {
+      font-size: 1.5rem;
+      color: #a7a7a7;
+      margin-left: 12px;
+
+    }
+
+    h2 {
+      color: #575252;
+      font-size: 2rem;
+      font-family: 'Roboto', sans-serif;
+      margin-left: 12px;
+      font-weight: lighter;
+    }
+
+    .lighter-text {
+      color: #8c8c8c;
+      /* Adjust the color code to the desired lighter color */
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    {% if profile.brand_name == 'dukun' or profile.brand_name == 'Dukun' %}
+    <div class="logo">
+      <img src="{% static '../media/dukun.png' %}" alt="" width="100">
+    </div>
+    {% else %}
+    <h2>{{profile.brand_name|upper}}</h2>
+    {% endif %}
+
+
+
+
+
+    <div class="h5wrap">
+      <h5>{{model|capfirst}}</h5>
+    </div>
+    <div class="custom-card">
+      <div class="card-text">
+
+
+
+        <h4><strong>Client:</strong><br> <span class="lighter-text">
+            {{ object.customer.name|capfirst }}</span></h4>
+        <h4><strong>Description:</strong> <span class="lighter-text">
+            {{ object.description }}</span></h4>
+        {% if object.discount_percentage %}
+        <h4><strong>Discount:</strong> <span class="lighter-text">
+            {{ object.discount_percentage }}%</span></h4>
+        {% endif %}
+        <h4><strong>Amount:</strong> <span class="lighter-text">
+            {{ object.amount|intcomma }}</span></h4>
+        <h4><strong>Date Issued:</strong> <span class="lighter-text">
+            {{ object.created_at.date }}</span></h4>
+
+
+      </div>
+    </div>
+
+    <div class="h6wrap">
+      <h6>Thank You For Doing Business With {{profile.brand_name}}... Do Come Back</h6>
+
+    </div>
+
+  </div>
+
+</body>
+
+</html>
